@@ -29,7 +29,7 @@ struct BFRSectionView: View {
                     .fontWeight(.semibold)
                 Spacer()
             }
-            .padding(16)
+            .padding(AppSpacing.lg)
             
             Divider()
             
@@ -51,13 +51,13 @@ struct BFRSectionView: View {
                 .font(.system(size: 15, weight: .semibold))
                 .foregroundColor(.white)
                 .frame(maxWidth: .infinity)
-                .padding(.vertical, 12)
+                .padding(.vertical, AppSpacing.md)
                 .background(Color.green)
-                .clipShape(RoundedRectangle(cornerRadius: 10))
+                .clipShape(RoundedRectangle(cornerRadius: AppRadius.md))
             }
             .buttonStyle(.plain)
             .disabled(loading)
-            .padding(.horizontal, 16)
+            .padding(.horizontal, AppSpacing.lg)
             .padding(.bottom, 16)
             
             // 结果展示
@@ -67,7 +67,7 @@ struct BFRSectionView: View {
             }
         }
         .background(Color.platformBackground)
-        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .appCardStyle()
     }
     
     /// BFR输入表单
@@ -91,7 +91,7 @@ struct BFRSectionView: View {
                                 Text(sexOption.displayName)
                             }
                             .font(.system(size: 14, weight: .medium))
-                            .padding(.horizontal, 16)
+                            .padding(.horizontal, AppSpacing.lg)
                             .padding(.vertical, 8)
                             .background(sex == sexOption ? Color.green : Color.platformGray6)
                             .foregroundColor(sex == sexOption ? .white : .primary)
@@ -194,7 +194,7 @@ struct BFRResultView: View {
                 }
                 .frame(maxWidth: .infinity)
             }
-            .padding(16)
+            .padding(AppSpacing.lg)
             
             Divider()
             
@@ -215,7 +215,7 @@ struct BFRResultView: View {
                     .font(.caption)
                     .foregroundColor(.secondary)
                     .lineSpacing(4)
-                    .padding(16)
+                    .padding(AppSpacing.lg)
             }
         }
     }
@@ -236,7 +236,7 @@ struct BFRInfoRow: View {
                 .font(.subheadline)
                 .fontWeight(.medium)
         }
-        .padding(.horizontal, 16)
-        .padding(.vertical, 12)
+        .padding(.horizontal, AppSpacing.lg)
+        .padding(.vertical, AppSpacing.md)
     }
 }

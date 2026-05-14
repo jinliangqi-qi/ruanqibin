@@ -45,11 +45,11 @@ struct DouyinHotPanel: View {
                 .buttonStyle(.plain)
                 .disabled(isLoading)
             }
-            .padding(.horizontal, 16)
-            .padding(.vertical, 12)
+            .padding(.horizontal, AppSpacing.lg)
+            .padding(.vertical, AppSpacing.md)
             
             Divider()
-                .padding(.horizontal, 16)
+                .padding(.horizontal, AppSpacing.lg)
             
             // 内容区域
             if isLoading && hotList.isEmpty {
@@ -89,7 +89,7 @@ struct DouyinHotPanel: View {
             }
         }
         .background(Color.platformBackground)
-        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .appCardStyle()
     }
 }
 
@@ -154,7 +154,7 @@ struct DouyinHotRowView: View {
                 .font(.caption)
                 .foregroundColor(.tertiaryLabel)
         }
-        .padding(.horizontal, 16)
+        .padding(.horizontal, AppSpacing.lg)
         .padding(.vertical, 10)
         .contentShape(Rectangle())
     }

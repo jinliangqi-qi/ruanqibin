@@ -17,8 +17,9 @@ struct ConstellationButton: View {
     var body: some View {
         Button(action: action) {
             VStack(spacing: 6) {
-                Text(constellation.icon)
+                Image(systemName: constellation.sfSymbol)
                     .font(.title2)
+                    .foregroundStyle(constellation.color.gradient)
                 Text(constellation.rawValue)
                     .font(.caption)
                     .fontWeight(isSelected ? .semibold : .regular)
@@ -27,9 +28,9 @@ struct ConstellationButton: View {
             .padding(.vertical, 8)
             .background(isSelected ? constellation.color.opacity(0.15) : Color.clear)
             .foregroundColor(isSelected ? constellation.color : .primary)
-            .clipShape(RoundedRectangle(cornerRadius: 10))
+            .clipShape(RoundedRectangle(cornerRadius: AppRadius.md))
             .overlay(
-                RoundedRectangle(cornerRadius: 10)
+                RoundedRectangle(cornerRadius: AppRadius.md)
                     .stroke(isSelected ? constellation.color : Color.clear, lineWidth: 1.5)
             )
         }

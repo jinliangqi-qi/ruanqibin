@@ -241,7 +241,7 @@ struct NewsCategoryPageView: View {
                 ScrollView {
                     listLayoutView
                         .padding(.horizontal, DeviceType.current.isIPad ? 24 : 16)
-                        .padding(.vertical, 12)
+                        .padding(.vertical, AppSpacing.md)
                 }
                 .background(Color.platformGroupedBackground)
                 .refreshable {
@@ -297,8 +297,8 @@ struct NewsCategoryPageView: View {
                     bottomLoadingIndicator
                         .gridCellColumns(columnCount)
                 }
-                .padding(.horizontal, 16)
-                .padding(.vertical, 12)
+                .padding(.horizontal, AppSpacing.lg)
+                .padding(.vertical, AppSpacing.md)
             }
         }
     }
@@ -357,7 +357,7 @@ struct NewsCategoryPageView: View {
                 Text("重新加载")
                     .fontWeight(.medium)
                     .padding(.horizontal, 24)
-                    .padding(.vertical, 12)
+                    .padding(.vertical, AppSpacing.md)
             }
             .buttonStyle(.borderedProminent)
             .tint(.blue)
@@ -406,7 +406,7 @@ struct NewsCategoryPageView: View {
                 Text("刷新")
                     .fontWeight(.medium)
                     .padding(.horizontal, 24)
-                    .padding(.vertical, 12)
+                    .padding(.vertical, AppSpacing.md)
             }
             .buttonStyle(.borderedProminent)
             .tint(.blue)

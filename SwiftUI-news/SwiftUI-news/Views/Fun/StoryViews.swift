@@ -54,8 +54,8 @@ struct StoryRowView: View {
                 .fontWeight(.semibold)
                 .foregroundColor(.tertiaryLabel)
         }
-        .padding(.horizontal, 16)
-        .padding(.vertical, 12)
+        .padding(.horizontal, AppSpacing.lg)
+        .padding(.vertical, AppSpacing.md)
         .contentShape(Rectangle())
     }
 }
@@ -113,12 +113,12 @@ struct StoryDetailSheet: View {
                             .foregroundColor(.secondary)
                             .lineSpacing(8)
                     }
-                    .padding(16)
+                    .padding(AppSpacing.lg)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .background(Color.platformGray6)
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                    .clipShape(RoundedRectangle(cornerRadius: AppRadius.md))
                 }
-                .padding(20)
+                .padding(AppSpacing.xl)
             }
             .background(Color.platformGroupedBackground)
             .navigationTitle("故事详情")

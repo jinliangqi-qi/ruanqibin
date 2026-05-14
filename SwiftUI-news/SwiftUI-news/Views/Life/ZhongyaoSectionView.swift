@@ -27,7 +27,7 @@ struct ZhongyaoSectionView: View {
                     .fontWeight(.semibold)
                 Spacer()
             }
-            .padding(16)
+            .padding(AppSpacing.lg)
             
             Divider()
             
@@ -43,7 +43,7 @@ struct ZhongyaoSectionView: View {
                 }
                 .padding(10)
                 .background(Color.platformGray6)
-                .clipShape(RoundedRectangle(cornerRadius: 8))
+                .clipShape(RoundedRectangle(cornerRadius: AppRadius.sm))
                 
                 Button(action: onSearch) {
                     Text("搜索")
@@ -52,7 +52,7 @@ struct ZhongyaoSectionView: View {
                         .padding(.horizontal, 20)
                         .padding(.vertical, 10)
                         .background(Color.green)
-                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                        .clipShape(RoundedRectangle(cornerRadius: AppRadius.sm))
                 }
                 .buttonStyle(.plain)
                 .disabled(loading)
@@ -99,8 +99,8 @@ struct ZhongyaoSectionView: View {
                                     .fontWeight(.semibold)
                                     .foregroundColor(.tertiaryLabel)
                             }
-                            .padding(.horizontal, 16)
-                            .padding(.vertical, 12)
+                            .padding(.horizontal, AppSpacing.lg)
+                            .padding(.vertical, AppSpacing.md)
                             .contentShape(Rectangle())
                         }
                         .buttonStyle(.plain)
@@ -123,7 +123,7 @@ struct ZhongyaoSectionView: View {
             }
         }
         .background(Color.platformBackground)
-        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .appCardStyle()
     }
     
     /// 常用中药推荐
@@ -152,7 +152,7 @@ struct ZhongyaoSectionView: View {
                 }
             }
         }
-        .padding(.horizontal, 16)
+        .padding(.horizontal, AppSpacing.lg)
         .padding(.bottom, 16)
     }
 }
@@ -216,7 +216,7 @@ struct ZhongyaoDetailSheet: View {
                         ZhongyaoInfoSection(title: "化学成份", content: info.chemistry, icon: "flask.fill")
                     }
                 }
-                .padding(20)
+                .padding(AppSpacing.xl)
             }
             .background(Color.platformGroupedBackground)
             .navigationTitle("中药详情")
@@ -260,6 +260,6 @@ struct ZhongyaoInfoSection: View {
         .padding(14)
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(Color.platformBackground)
-        .clipShape(RoundedRectangle(cornerRadius: 10))
+        .clipShape(RoundedRectangle(cornerRadius: AppRadius.md))
     }
 }

@@ -32,8 +32,9 @@ struct StarFortuneContentView: View {
         VStack(alignment: .leading, spacing: 16) {
             // 星座信息头部
             HStack(spacing: 14) {
-                Text(constellation.icon)
+                Image(systemName: constellation.sfSymbol)
                     .font(.system(size: 40))
+                    .foregroundStyle(constellation.color.gradient)
                 
                 VStack(alignment: .leading, spacing: 4) {
                     Text(constellation.rawValue)
@@ -46,7 +47,7 @@ struct StarFortuneContentView: View {
                 
                 Spacer()
             }
-            .padding(.horizontal, 16)
+            .padding(.horizontal, AppSpacing.lg)
             .padding(.top, 14)
             
             // 运势指数网格
@@ -60,7 +61,7 @@ struct StarFortuneContentView: View {
                         FortuneIndexCard(item: item)
                     }
                 }
-                .padding(.horizontal, 16)
+                .padding(.horizontal, AppSpacing.lg)
             }
             
             // 其他信息
@@ -76,10 +77,10 @@ struct StarFortuneContentView: View {
                     }
                 }
                 .frame(maxWidth: .infinity)
-                .padding(.vertical, 12)
+                .padding(.vertical, AppSpacing.md)
                 .background(Color.platformGray6)
-                .clipShape(RoundedRectangle(cornerRadius: 10))
-                .padding(.horizontal, 16)
+                .clipShape(RoundedRectangle(cornerRadius: AppRadius.md))
+                .padding(.horizontal, AppSpacing.lg)
             }
             
             // 今日概述
@@ -101,8 +102,8 @@ struct StarFortuneContentView: View {
                 .padding(14)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .background(Color.platformGray6)
-                .clipShape(RoundedRectangle(cornerRadius: 10))
-                .padding(.horizontal, 16)
+                .clipShape(RoundedRectangle(cornerRadius: AppRadius.md))
+                .padding(.horizontal, AppSpacing.lg)
             }
         }
         .padding(.bottom, 16)
@@ -129,9 +130,9 @@ struct FortuneIndexCard: View {
                 .foregroundColor(item.color)
         }
         .frame(maxWidth: .infinity)
-        .padding(.vertical, 12)
+        .padding(.vertical, AppSpacing.md)
         .background(item.color.opacity(0.1))
-        .clipShape(RoundedRectangle(cornerRadius: 10))
+        .clipShape(RoundedRectangle(cornerRadius: AppRadius.md))
     }
 }
 

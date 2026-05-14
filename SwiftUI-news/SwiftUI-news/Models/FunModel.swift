@@ -98,23 +98,27 @@ enum Constellation: String, CaseIterable, Identifiable {
     
     var id: String { rawValue }
     
-    /// 星座图标
-    var icon: String {
+    /// 星座徽标 SF Symbol
+    var sfSymbol: String {
         switch self {
-        case .aries: return "♈️"
-        case .taurus: return "♉️"
-        case .gemini: return "♊️"
-        case .cancer: return "♋️"
-        case .leo: return "♌️"
-        case .virgo: return "♍️"
-        case .libra: return "♎️"
-        case .scorpio: return "♏️"
-        case .sagittarius: return "♐️"
-        case .capricorn: return "♑️"
-        case .aquarius: return "♒️"
-        case .pisces: return "♓️"
+        case .aries: return "flame"
+        case .taurus: return "leaf"
+        case .gemini: return "lasso.and.sparkles"
+        case .cancer: return "moon.stars"
+        case .leo: return "sun.max"
+        case .virgo: return "staroflife"
+        case .libra: return "scalemass"
+        case .scorpio: return "arrow.triangle.branch"
+        case .sagittarius: return "arrow.up.right"
+        case .capricorn: return "tropicalstorm"
+        case .aquarius: return "drop"
+        case .pisces: return "fish"
         }
     }
+    
+    /// 星座图标 (兼容旧接口)
+    var icon: String { sfSymbol }
+    
     
     /// 星座颜色
     var color: Color {

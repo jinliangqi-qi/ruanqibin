@@ -47,7 +47,7 @@ struct FunView: View {
                             }
                             .frame(maxWidth: .infinity)
                         }
-                        .padding(24)
+                        .padding(AppSpacing.xxl)
                     } else {
                         // iPhone 单列布局
                         VStack(spacing: 20) {
@@ -91,11 +91,11 @@ struct FunView: View {
                     .font(.caption)
                     .foregroundColor(.secondary)
             }
-            .padding(.horizontal, 16)
+            .padding(.horizontal, AppSpacing.lg)
             .padding(.vertical, 14)
             
             Divider()
-                .padding(.horizontal, 16)
+                .padding(.horizontal, AppSpacing.lg)
             
             // 星座选择器
             ScrollView(.horizontal, showsIndicators: false) {
@@ -109,12 +109,12 @@ struct FunView: View {
                         }
                     }
                 }
-                .padding(.horizontal, 16)
+                .padding(.horizontal, AppSpacing.lg)
                 .padding(.vertical, 14)
             }
             
             Divider()
-                .padding(.horizontal, 16)
+                .padding(.horizontal, AppSpacing.lg)
             
             // 运势内容
             if viewModel.isStarLoading {
@@ -143,7 +143,7 @@ struct FunView: View {
             }
         }
         .background(Color.platformBackground)
-        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .appCardStyle()
     }
     
     // MARK: - 故事大全区域
@@ -160,11 +160,11 @@ struct FunView: View {
                     .fontWeight(.bold)
                 Spacer()
             }
-            .padding(.horizontal, 16)
+            .padding(.horizontal, AppSpacing.lg)
             .padding(.vertical, 14)
             
             Divider()
-                .padding(.horizontal, 16)
+                .padding(.horizontal, AppSpacing.lg)
             
             // 故事类型选择器
             ScrollView(.horizontal, showsIndicators: false) {
@@ -178,12 +178,12 @@ struct FunView: View {
                         }
                     }
                 }
-                .padding(.horizontal, 16)
-                .padding(.vertical, 12)
+                .padding(.horizontal, AppSpacing.lg)
+                .padding(.vertical, AppSpacing.md)
             }
             
             Divider()
-                .padding(.horizontal, 16)
+                .padding(.horizontal, AppSpacing.lg)
             
             // 搜索框
             HStack(spacing: 12) {
@@ -210,7 +210,7 @@ struct FunView: View {
                 }
                 .padding(10)
                 .background(Color.platformGray6)
-                .clipShape(RoundedRectangle(cornerRadius: 8))
+                .clipShape(RoundedRectangle(cornerRadius: AppRadius.sm))
                 
                 Button {
                     Task { await viewModel.fetchStory(refresh: true) }
@@ -218,10 +218,10 @@ struct FunView: View {
                     Text("搜索")
                         .font(.system(size: 14, weight: .semibold))
                         .foregroundColor(.white)
-                        .padding(.horizontal, 16)
+                        .padding(.horizontal, AppSpacing.lg)
                         .padding(.vertical, 10)
                         .background(Color.pink)
-                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                        .clipShape(RoundedRectangle(cornerRadius: AppRadius.sm))
                 }
                 .buttonStyle(.plain)
             }
@@ -281,19 +281,19 @@ struct FunView: View {
                             }
                             Spacer()
                         }
-                        .padding(.vertical, 12)
+                        .padding(.vertical, AppSpacing.md)
                     } else if viewModel.storyList.count > 0 {
                         Text("已加载全部")
                             .font(.caption)
                             .foregroundColor(.secondary)
                             .frame(maxWidth: .infinity)
-                            .padding(.vertical, 12)
+                            .padding(.vertical, AppSpacing.md)
                     }
                 }
             }
         }
         .background(Color.platformBackground)
-        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .appCardStyle()
     }
     
     // MARK: - 周公解梦区域
@@ -310,11 +310,11 @@ struct FunView: View {
                     .fontWeight(.bold)
                 Spacer()
             }
-            .padding(.horizontal, 16)
+            .padding(.horizontal, AppSpacing.lg)
             .padding(.vertical, 14)
             
             Divider()
-                .padding(.horizontal, 16)
+                .padding(.horizontal, AppSpacing.lg)
             
             // 搜索框
             HStack(spacing: 12) {
@@ -340,7 +340,7 @@ struct FunView: View {
                 }
                 .padding(10)
                 .background(Color.platformGray6)
-                .clipShape(RoundedRectangle(cornerRadius: 8))
+                .clipShape(RoundedRectangle(cornerRadius: AppRadius.sm))
                 
                 Button {
                     Task { await viewModel.searchDream() }
@@ -351,7 +351,7 @@ struct FunView: View {
                         .padding(.horizontal, 20)
                         .padding(.vertical, 10)
                         .background(Color.purple)
-                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                        .clipShape(RoundedRectangle(cornerRadius: AppRadius.sm))
                 }
                 .buttonStyle(.plain)
                 .disabled(viewModel.dreamKeyword.trimmingCharacters(in: .whitespaces).isEmpty)
@@ -385,7 +385,7 @@ struct FunView: View {
                         }
                     }
                 }
-                .padding(.horizontal, 16)
+                .padding(.horizontal, AppSpacing.lg)
                 .padding(.bottom, 16)
             }
             
@@ -438,7 +438,7 @@ struct FunView: View {
             }
         }
         .background(Color.platformBackground)
-        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .appCardStyle()
     }
 }
 

@@ -49,7 +49,7 @@ struct NewsRowView: View {
             if hasPicture {
                 CachedAsyncImage(url: news.picUrl, placeholder: "newspaper")
                     .frame(width: 100, height: 75)
-                    .clipShape(RoundedRectangle(cornerRadius: 8))
+                    .clipShape(RoundedRectangle(cornerRadius: AppRadius.sm))
             }
             
             // 右侧内容区
@@ -84,7 +84,7 @@ struct NewsRowView: View {
         }
         .padding(10)
         .background(Color.cardBackground)
-        .clipShape(RoundedRectangle(cornerRadius: 10))
+        .clipShape(RoundedRectangle(cornerRadius: AppRadius.md))
         .shadow(color: Color.primary.opacity(0.08), radius: 4, x: 0, y: 2)
     }
 }
@@ -138,7 +138,7 @@ struct NewsGridView: View {
             .frame(minHeight: hasPicture ? 70 : 100)
         }
         .background(Color.cardBackground)
-        .clipShape(RoundedRectangle(cornerRadius: 10))
+        .clipShape(RoundedRectangle(cornerRadius: AppRadius.md))
         .shadow(color: Color.primary.opacity(0.08), radius: 4, x: 0, y: 2)
     }
     

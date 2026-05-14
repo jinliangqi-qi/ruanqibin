@@ -44,7 +44,7 @@ struct WeatherCardView: View {
                 }
                 .buttonStyle(.plain)
             }
-            .padding(16)
+            .padding(AppSpacing.lg)
             
             Divider()
             
@@ -97,7 +97,7 @@ struct WeatherCardView: View {
                         .font(.caption)
                         .foregroundColor(.secondary)
                         .lineSpacing(4)
-                        .padding(16)
+                        .padding(AppSpacing.lg)
                 }
                 
                 // 天气预警
@@ -114,7 +114,7 @@ struct WeatherCardView: View {
                                 .foregroundColor(alarmColor(alarm.level))
                             Spacer()
                         }
-                        .padding(16)
+                        .padding(AppSpacing.lg)
                         .background(alarmColor(alarm.level).opacity(0.08))
                     }
                 }
@@ -127,7 +127,7 @@ struct WeatherCardView: View {
             }
         }
         .background(Color.platformBackground)
-        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .appCardStyle()
     }
     
     /// 天气图标颜色

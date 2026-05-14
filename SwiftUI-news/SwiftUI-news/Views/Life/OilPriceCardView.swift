@@ -31,7 +31,7 @@ struct OilPriceCardView: View {
             }
         }
         .background(Color.platformBackground)
-        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .appCardStyle()
     }
     
     // MARK: - 标题栏
@@ -63,7 +63,7 @@ struct OilPriceCardView: View {
             }
             .buttonStyle(.plain)
         }
-        .padding(16)
+        .padding(AppSpacing.lg)
     }
     
     // MARK: - 加载中视图
@@ -81,7 +81,7 @@ struct OilPriceCardView: View {
         Text("暂无油价数据")
             .font(.subheadline)
             .foregroundColor(.secondary)
-            .padding(16)
+            .padding(AppSpacing.lg)
     }
     
     // MARK: - 油价内容
@@ -101,7 +101,7 @@ struct OilPriceCardView: View {
                     oilPriceItem(type: "89#", price: data.p89, color: .cyan)
                 }
             }
-            .padding(.horizontal, 16)
+            .padding(.horizontal, AppSpacing.lg)
             .padding(.top, 12)
             
             // 更新时间
@@ -140,6 +140,6 @@ struct OilPriceCardView: View {
         .frame(maxWidth: .infinity)
         .padding(.vertical, 8)
         .background(color.opacity(0.1))
-        .clipShape(RoundedRectangle(cornerRadius: 8))
+        .clipShape(RoundedRectangle(cornerRadius: AppRadius.sm))
     }
 }

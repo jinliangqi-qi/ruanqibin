@@ -38,7 +38,7 @@ struct KnowledgeView: View {
                             }
                             .frame(maxWidth: .infinity)
                         }
-                        .padding(24)
+                        .padding(AppSpacing.xxl)
                     } else {
                         // iPhone 单列布局
                         VStack(spacing: 20) {
@@ -49,6 +49,7 @@ struct KnowledgeView: View {
                     }
                 }
                 .background(Color.platformGroupedBackground)
+            .frame(maxWidth: AppLayout.maxContentWidth)
             }
             .navigationTitle("知识")
         }
@@ -82,11 +83,11 @@ struct KnowledgeView: View {
                 .buttonStyle(.plain)
                 .disabled(viewModel.isQuizLoading)
             }
-            .padding(.horizontal, 16)
+            .padding(.horizontal, AppSpacing.lg)
             .padding(.vertical, 14)
             
             Divider()
-                .padding(.horizontal, 16)
+                .padding(.horizontal, AppSpacing.lg)
             
             // 内容
             if viewModel.isQuizLoading && viewModel.currentQuiz == nil {
@@ -112,7 +113,7 @@ struct KnowledgeView: View {
             }
         }
         .background(Color.platformBackground)
-        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .appCardStyle()
     }
     
     /// 题目内容
@@ -139,9 +140,9 @@ struct KnowledgeView: View {
                         .font(.system(size: 15, weight: .semibold))
                         .foregroundColor(.white)
                         .frame(maxWidth: .infinity)
-                        .padding(.vertical, 12)
+                        .padding(.vertical, AppSpacing.md)
                         .background(viewModel.selectedAnswer == nil ? Color.gray : Color.green)
-                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                        .clipShape(RoundedRectangle(cornerRadius: AppRadius.sm))
                 }
                 .buttonStyle(.plain)
                 .disabled(viewModel.selectedAnswer == nil)
@@ -176,7 +177,7 @@ struct KnowledgeView: View {
                         .padding(12)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .background(Color.platformGray6)
-                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                        .clipShape(RoundedRectangle(cornerRadius: AppRadius.sm))
                     }
                     
                     // 下一题按钮
@@ -187,15 +188,15 @@ struct KnowledgeView: View {
                             .font(.system(size: 15, weight: .semibold))
                             .foregroundColor(.white)
                             .frame(maxWidth: .infinity)
-                            .padding(.vertical, 12)
+                            .padding(.vertical, AppSpacing.md)
                             .background(Color.green)
-                            .clipShape(RoundedRectangle(cornerRadius: 8))
+                            .clipShape(RoundedRectangle(cornerRadius: AppRadius.sm))
                     }
                     .buttonStyle(.plain)
                 }
             }
         }
-        .padding(16)
+        .padding(AppSpacing.lg)
     }
     
     /// 选项按钮
@@ -261,11 +262,11 @@ struct KnowledgeView: View {
                 }
             }
             .padding(.horizontal, 14)
-            .padding(.vertical, 12)
+            .padding(.vertical, AppSpacing.md)
             .background(backgroundColor)
-            .clipShape(RoundedRectangle(cornerRadius: 10))
+            .clipShape(RoundedRectangle(cornerRadius: AppRadius.md))
             .overlay(
-                RoundedRectangle(cornerRadius: 10)
+                RoundedRectangle(cornerRadius: AppRadius.md)
                     .stroke(borderColor, lineWidth: 2)
             )
         }
@@ -297,11 +298,11 @@ struct KnowledgeView: View {
                 .buttonStyle(.plain)
                 .disabled(viewModel.isBrainTeaserLoading)
             }
-            .padding(.horizontal, 16)
+            .padding(.horizontal, AppSpacing.lg)
             .padding(.vertical, 14)
             
             Divider()
-                .padding(.horizontal, 16)
+                .padding(.horizontal, AppSpacing.lg)
             
             // 脑筋急转弯列表
             if viewModel.isBrainTeaserLoading && viewModel.brainTeaserList.isEmpty {
@@ -340,7 +341,7 @@ struct KnowledgeView: View {
                         
                         if index < viewModel.brainTeaserList.count - 1 {
                             Divider()
-                                .padding(.horizontal, 16)
+                                .padding(.horizontal, AppSpacing.lg)
                         }
                     }
                     
@@ -357,19 +358,19 @@ struct KnowledgeView: View {
                             }
                             Spacer()
                         }
-                        .padding(.vertical, 12)
+                        .padding(.vertical, AppSpacing.md)
                     } else if viewModel.brainTeaserList.count > 0 {
                         Text("已加载全部")
                             .font(.caption)
                             .foregroundColor(.secondary)
                             .frame(maxWidth: .infinity)
-                            .padding(.vertical, 12)
+                            .padding(.vertical, AppSpacing.md)
                     }
                 }
             }
         }
         .background(Color.platformBackground)
-        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .appCardStyle()
     }
 }
 
@@ -425,11 +426,11 @@ struct BrainTeaserRowView: View {
                 }
                 .padding(12)
                 .background(isExpanded ? Color.orange.opacity(0.1) : Color.platformGray6)
-                .clipShape(RoundedRectangle(cornerRadius: 8))
+                .clipShape(RoundedRectangle(cornerRadius: AppRadius.sm))
             }
             .buttonStyle(.plain)
         }
-        .padding(16)
+        .padding(AppSpacing.lg)
     }
 }
 

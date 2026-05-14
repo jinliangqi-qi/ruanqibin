@@ -41,7 +41,7 @@ struct LifeView: View {
                     } else {
                         // iPhone 单列布局
                         iPhoneLayout
-                            .padding(.horizontal, 16)
+                            .padding(.horizontal, AppSpacing.lg)
                             .padding(.vertical, 16)
                     }
                 }
@@ -190,7 +190,7 @@ struct ScenicSectionView: View {
                     .fontWeight(.semibold)
                 Spacer()
             }
-            .padding(16)
+            .padding(AppSpacing.lg)
             
             Divider()
             
@@ -216,16 +216,16 @@ struct ScenicSectionView: View {
                 }
                 .padding(10)
                 .background(Color.platformGray6)
-                .clipShape(RoundedRectangle(cornerRadius: 8))
+                .clipShape(RoundedRectangle(cornerRadius: AppRadius.sm))
                 
                 Button(action: onSearch) {
                     Text("搜索")
                         .font(.system(size: 14, weight: .semibold))
                         .foregroundColor(.white)
-                        .padding(.horizontal, 16)
+                        .padding(.horizontal, AppSpacing.lg)
                         .padding(.vertical, 10)
                         .background(Color.orange)
-                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                        .clipShape(RoundedRectangle(cornerRadius: AppRadius.sm))
                 }
                 .buttonStyle(.plain)
             }
@@ -257,7 +257,7 @@ struct ScenicSectionView: View {
                         }
                     }
                 }
-                .padding(.horizontal, 16)
+                .padding(.horizontal, AppSpacing.lg)
                 .padding(.bottom, 16)
             }
             
@@ -287,7 +287,7 @@ struct ScenicSectionView: View {
                         
                         if index < scenicList.count - 1 {
                             Divider()
-                                .padding(.horizontal, 16)
+                                .padding(.horizontal, AppSpacing.lg)
                         }
                     }
                     
@@ -304,19 +304,19 @@ struct ScenicSectionView: View {
                             }
                             Spacer()
                         }
-                        .padding(.vertical, 12)
+                        .padding(.vertical, AppSpacing.md)
                     } else if scenicList.count > 0 {
                         Text("已加载全部")
                             .font(.caption)
                             .foregroundColor(.secondary)
                             .frame(maxWidth: .infinity)
-                            .padding(.vertical, 12)
+                            .padding(.vertical, AppSpacing.md)
                     }
                 }
             }
         }
         .background(Color.platformBackground)
-        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .appCardStyle()
     }
 }
 
@@ -332,7 +332,7 @@ struct ScenicRowView: View {
                 .foregroundColor(.orange)
                 .frame(width: 44, height: 44)
                 .background(Color.orange.opacity(0.1))
-                .clipShape(RoundedRectangle(cornerRadius: 8))
+                .clipShape(RoundedRectangle(cornerRadius: AppRadius.sm))
             
             VStack(alignment: .leading, spacing: 4) {
                 Text(scenic.name)
@@ -352,7 +352,7 @@ struct ScenicRowView: View {
                 .font(.caption)
                 .foregroundColor(.secondary)
         }
-        .padding(16)
+        .padding(AppSpacing.lg)
         .contentShape(Rectangle())
     }
 }
@@ -395,7 +395,7 @@ struct ScenicDetailSheet: View {
                             .lineSpacing(6)
                     }
                 }
-                .padding(20)
+                .padding(AppSpacing.xl)
             }
             .navigationTitle("景区详情")
             .platformNavigationBarTitleDisplayMode(.inline)
