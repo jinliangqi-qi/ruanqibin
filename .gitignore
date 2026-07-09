@@ -1,0 +1,26 @@
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+
+# Node.js
+node_modules/
+.next/
+.npmrc
+
+# Environment
+.env
+.env.local
+
+# Build
+build/
+
+# Docker
+.docker/
+
+# Backend data
+backend/data/
