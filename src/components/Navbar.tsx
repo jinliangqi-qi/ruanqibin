@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 const links = [
   { label: "关于", href: "/about" },
   { label: "技能", href: "/courses" },
-  { label: "经历", href: "/cases" },
+  { label: "在校经历", href: "/cases" },
 ];
 
 export function Navbar() {

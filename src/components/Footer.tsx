@@ -5,7 +5,7 @@ export function Footer() {
         <div className="flex items-center gap-6 text-[13px] text-[#8b95a1]">
           <a href="/about" className="hover:text-[#2c3e50] transition-colors">关于</a>
           <a href="/courses" className="hover:text-[#2c3e50] transition-colors">技能</a>
-          <a href="/cases" className="hover:text-[#2c3e50] transition-colors">经历</a>
+          <a href="/cases" className="hover:text-[#2c3e50] transition-colors">在校经历</a>
           <a href="/contact" className="hover:text-[#2c3e50] transition-colors">联系</a>
         </div>
         <span className="text-[12px] text-[#c0c7cf]">
