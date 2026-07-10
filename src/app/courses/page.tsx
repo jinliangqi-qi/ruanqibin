@@ -28,7 +28,7 @@ const skillGroups = [
 const certs = [
   { title:"大学英语四级", detail:"CET-4 · 已通过", year:"2023", icon:"📜" },
   { title:"大学英语六级", detail:"CET-6 · 550+", year:"2024", icon:"🏅" },
-  { title:"商业英语专业", detail:"本科 · 应届毕业", year:"2026", icon:"🎓" },
+  { title:"商业英语专业", detail:"大专 · 应届毕业", year:"2026", icon:"🎓" },
 ];
 
 export default function SkillsPage() {

@@ -44,7 +44,7 @@ export default function AboutPage() {
             <div className="flex-1">
               <AnimateOnScroll delay={0.1}>
                 <div className="flex flex-wrap gap-x-8 gap-y-3 mb-6">
-                  {[["姓名","阮琪斌"],["专业","商业英语"],["学历","本科·应届"],["城市","广东深圳"]].map(([k,v])=>(
+                  {[["姓名","阮琪斌"],["专业","商业英语"],["学历","大专·应届"],["城市","广东深圳"]].map(([k,v])=>(
                     <div key={k}>
                       <span className="text-[11px] text-[#8b95a1] uppercase tracking-wider">{k}</span>
                       <p className="text-[14px] font-semibold text-[#2c3e50] mt-0.5">{v}</p>
