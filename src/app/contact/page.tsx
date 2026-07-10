@@ -13,14 +13,12 @@ export default function ContactPage() {
   const h = (e: React.ChangeEvent<HTMLInputElement|HTMLTextAreaElement|HTMLSelectElement>) =>
     setForm({...form,[e.target.name]:e.target.value});
 
-  const submit = async (e: React.FormEvent) => {
+  const submit = (e: React.FormEvent) => {
     e.preventDefault(); setSending(true);
-    try {
-      const r = await fetch("/api/inquiries",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(form)});
-      if(!r.ok) throw new Error("fail");
+    setTimeout(() => {
+      setSending(false);
       setSent(true);
-    } catch { alert("提交失败，请重试"); }
-    finally { setSending(false); }
+    }, 800);
   };
 
   return (

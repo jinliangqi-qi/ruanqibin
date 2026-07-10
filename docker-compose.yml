@@ -1,23 +1,7 @@
 version: "3.8"
 
 services:
-  backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
-    container_name: ruanqibin-api
-    restart: always
-    environment:
-      - DATABASE_URL=sqlite+aiosqlite:///./data/app.db
-      - CORS_ORIGINS=http://localhost:3000
-      - HOST=0.0.0.0
-      - PORT=8001
-    volumes:
-      - ruanqibin_data:/app/data
-    networks:
-      - ruanqibin-net
-
-  frontend:
+  web:
     build:
       context: .
       dockerfile: Dockerfile
@@ -25,16 +9,3 @@ services:
     restart: always
     ports:
       - "3002:3000"
-    environment:
-      - API_BASE_URL=http://backend:8000
-    depends_on:
-      - backend
-    networks:
-      - ruanqibin-net
-
-volumes:
-  ruanqibin_data:
-
-networks:
-  ruanqibin-net:
-    driver: bridge
