@@ -26,7 +26,7 @@ export default function AnimateOnScroll({
           observer.unobserve(el);
         }
       },
-      { threshold: 0.08, rootMargin: "-20px 0px" }
+      { threshold: 0.06, rootMargin: "-10px 0px" }
     );
 
     observer.observe(el);

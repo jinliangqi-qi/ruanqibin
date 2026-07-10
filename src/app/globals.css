@@ -3,12 +3,13 @@
 @tailwind utilities;
 
 :root {
-  --bg: #fcf9f5;
-  --fg: #2d2a26;
-  --accent: #c2674a;
-  --accent-light: #f0e2d8;
-  --border: #e8e0d8;
-  --muted: #8c8580;
+  --accent: #5b8c5a;
+  --accent-light: #e8f4e8;
+  --accent-warm: #f5a623;
+  --fg: #2c3e50;
+  --muted: #8b95a1;
+  --border: #edf0f3;
+  --bg: #f8f9fa;
 }
 
 html {
@@ -19,54 +20,50 @@ html {
 body {
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC",
     "Helvetica Neue", "Microsoft YaHei", sans-serif;
-  background: var(--bg);
+  background: #fff;
   color: var(--fg);
 }
 
-/* ── 滚动渐现（clip-path 方式，不同于常规 opacity+translate）── */
-@keyframes clip-reveal {
-  from { clip-path: inset(100% 0% 0% 0%); }
-  to   { clip-path: inset(0% 0% 0% 0%); }
+/* ── 柔和浮入动画 ── */
+@keyframes soft-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 .anim-reveal {
   opacity: 0;
-  transform: translateY(32px);
-  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translateY(24px);
+  transition: opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 .anim-reveal.visible {
   opacity: 1;
   transform: translateY(0);
 }
 
-/* ── 文字裁剪出现 ── */
-.clip-text {
-  clip-path: inset(100% 0% 0% 0%);
-  animation: clip-reveal 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+/* ── 弹跳入场 ── */
+@keyframes bounce-in {
+  0%   { opacity: 0; transform: scale(0.8) translateY(20px); }
+  60%  { opacity: 1; transform: scale(1.03) translateY(-4px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
 }
 
-/* ── 照片入场 ── */
-@keyframes photo-in {
-  from { opacity: 0; transform: translateY(40px) rotate(-2deg); }
-  to   { opacity: 1; transform: translateY(0) rotate(0deg); }
+/* ── 文字逐行滑入 ── */
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(60px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-/* ── 装饰线生长 ── */
-@keyframes line-grow {
-  from { transform: scaleX(0); }
-  to   { transform: scaleX(1); }
+.line-in {
+  display: block;
+  overflow: hidden;
 }
-
-.line-grow {
-  transform-origin: left;
-  animation: line-grow 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+.line-in > span {
+  display: block;
+  animation: slide-up 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  opacity: 0;
 }
 
 @layer utilities {
   .text-balance { text-wrap: balance; }
-}
-
-@layer base {
-  h1, h2, h3 { letter-spacing: -0.02em; }
 }
