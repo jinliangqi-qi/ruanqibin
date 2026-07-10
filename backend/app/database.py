@@ -14,16 +14,15 @@ class Base(DeclarativeBase):
 
 
 class Inquiry(Base):
-    """咨询记录表"""
+    """联系记录表"""
     __tablename__ = "inquiries"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    parent_name = Column(String(50), nullable=False, comment="家长姓名")
-    student_name = Column(String(50), nullable=False, comment="学生姓名")
-    grade = Column(String(20), nullable=False, comment="年级")
+    company = Column(String(100), default="", comment="公司名称")
+    name = Column(String(50), nullable=False, comment="联系人")
+    position = Column(String(50), default="", comment="招聘岗位")
     phone = Column(String(20), nullable=False, comment="联系电话")
-    wechat = Column(String(50), default="", comment="微信号")
-    message = Column(Text, default="", comment="咨询内容")
+    message = Column(Text, default="", comment="备注信息")
     is_read = Column(Boolean, default=False, comment="是否已读")
     is_replied = Column(Boolean, default=False, comment="是否已回复")
     created_at = Column(DateTime, default=datetime.now, comment="提交时间")

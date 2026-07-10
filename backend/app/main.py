@@ -15,9 +15,9 @@ async def lifespan(app: FastAPI):
     yield
 
 app = FastAPI(
-    title="阮老师教学网站 API",
-    description="课程咨询管理系统",
-    version="1.0.0",
+    title="阮琪斌求职网站 API",
+    description="联系信息管理系统",
+    version="2.0.0",
     lifespan=lifespan,
 )
 
@@ -29,12 +29,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(inquiries.router, prefix="/api/inquiries", tags=["咨询管理"])
+app.include_router(inquiries.router, prefix="/api/inquiries", tags=["联系管理"])
 
 
 @app.get("/api/health")
 async def health_check():
-    return {"status": "healthy", "version": "1.0.0"}
+    return {"status": "healthy", "version": "2.0.0"}
 
 
 # 管理后台页面

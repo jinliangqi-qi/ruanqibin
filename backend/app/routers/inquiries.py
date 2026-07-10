@@ -14,21 +14,19 @@ router = APIRouter()
 
 
 class InquiryCreate(BaseModel):
-    parentName: str
-    studentName: str
-    grade: str
+    company: str = ""
+    name: str
+    position: str = ""
     phone: str
-    wechat: Optional[str] = ""
-    message: Optional[str] = ""
+    message: str = ""
 
 
 class InquiryResponse(BaseModel):
     id: int
-    parent_name: str
-    student_name: str
-    grade: str
+    company: str
+    name: str
+    position: str
     phone: str
-    wechat: str
     message: str
     is_read: bool
     is_replied: bool
@@ -55,9 +53,9 @@ class BatchIdsRequest(BaseModel):
 
 SORT_FIELDS = {
     "created_at": Inquiry.created_at,
-    "parent_name": Inquiry.parent_name,
-    "student_name": Inquiry.student_name,
-    "grade": Inquiry.grade,
+    "company": Inquiry.company,
+    "name": Inquiry.name,
+    "position": Inquiry.position,
 }
 
 
@@ -67,11 +65,10 @@ async def create_inquiry(
     db: AsyncSession = Depends(get_db),
 ):
     inquiry = Inquiry(
-        parent_name=data.parentName,
-        student_name=data.studentName,
-        grade=data.grade,
+        company=data.company or "",
+        name=data.name,
+        position=data.position or "",
         phone=data.phone,
-        wechat=data.wechat or "",
         message=data.message or "",
     )
     db.add(inquiry)
@@ -100,33 +97,28 @@ async def list_inquiries(
     query = select(Inquiry)
     count_query = select(func.count(Inquiry.id))
 
-    # 搜索
     if search:
         term = f"%{search}%"
         search_filter = or_(
-            Inquiry.parent_name.ilike(term),
-            Inquiry.student_name.ilike(term),
+            Inquiry.company.ilike(term),
+            Inquiry.name.ilike(term),
+            Inquiry.position.ilike(term),
             Inquiry.phone.ilike(term),
-            Inquiry.wechat.ilike(term),
             Inquiry.message.ilike(term),
-            Inquiry.grade.ilike(term),
         )
         query = query.where(search_filter)
         count_query = count_query.where(search_filter)
 
-    # 筛选
     if is_read is not None:
         query = query.where(Inquiry.is_read == is_read)
         count_query = count_query.where(Inquiry.is_read == is_read)
 
-    # 排序
     sort_col = SORT_FIELDS.get(sort_by, Inquiry.created_at)
     if sort_order == "asc":
         query = query.order_by(sort_col.asc())
     else:
         query = query.order_by(sort_col.desc())
 
-    # 先按主排序，再按创建时间降序作为次级排序
     if sort_by and sort_by != "created_at":
         query = query.order_by(Inquiry.created_at.desc())
 
@@ -160,12 +152,11 @@ async def export_inquiries(
     if search:
         term = f"%{search}%"
         query = query.where(or_(
-            Inquiry.parent_name.ilike(term),
-            Inquiry.student_name.ilike(term),
+            Inquiry.company.ilike(term),
+            Inquiry.name.ilike(term),
+            Inquiry.position.ilike(term),
             Inquiry.phone.ilike(term),
-            Inquiry.wechat.ilike(term),
             Inquiry.message.ilike(term),
-            Inquiry.grade.ilike(term),
         ))
 
     if is_read is not None:
@@ -186,11 +177,11 @@ async def export_inquiries(
 
         wb = Workbook()
         ws = wb.active
-        ws.title = "咨询列表"
+        ws.title = "联系列表"
 
-        headers = ["序号", "家长姓名", "学生姓名", "年级", "电话", "微信", "咨询内容", "状态", "提交时间", "备注"]
+        headers = ["序号", "公司名称", "联系人", "招聘岗位", "电话", "备注", "状态", "提交时间", "管理员备注"]
         header_font = Font(bold=True, color="FFFFFF", size=11)
-        header_fill = PatternFill(start_color="EC4899", end_color="EC4899", fill_type="solid")
+        header_fill = PatternFill(start_color="5B8C5A", end_color="5B8C5A", fill_type="solid")
         header_alignment = Alignment(horizontal="center", vertical="center")
         thin_border = Border(
             left=Side(style="thin"),
@@ -210,12 +201,11 @@ async def export_inquiries(
             status = "已回复" if item.is_replied else ("已读" if item.is_read else "未读")
             row_data = [
                 idx,
-                item.parent_name,
-                item.student_name,
-                item.grade,
+                item.company or "",
+                item.name,
+                item.position or "",
                 item.phone,
-                item.wechat or "",
-                item.message,
+                item.message or "",
                 status,
                 item.created_at.strftime("%Y-%m-%d %H:%M:%S") if item.created_at else "",
                 item.note or "",
@@ -226,15 +216,14 @@ async def export_inquiries(
                 cell.alignment = Alignment(vertical="center")
 
         ws.column_dimensions["A"].width = 6
-        ws.column_dimensions["B"].width = 12
+        ws.column_dimensions["B"].width = 20
         ws.column_dimensions["C"].width = 12
-        ws.column_dimensions["D"].width = 10
+        ws.column_dimensions["D"].width = 18
         ws.column_dimensions["E"].width = 16
-        ws.column_dimensions["F"].width = 16
-        ws.column_dimensions["G"].width = 40
-        ws.column_dimensions["H"].width = 10
-        ws.column_dimensions["I"].width = 20
-        ws.column_dimensions["J"].width = 30
+        ws.column_dimensions["F"].width = 40
+        ws.column_dimensions["G"].width = 10
+        ws.column_dimensions["H"].width = 20
+        ws.column_dimensions["I"].width = 30
 
         output = BytesIO()
         wb.save(output)
@@ -251,96 +240,64 @@ async def export_inquiries(
 
 
 @router.get("/{inquiry_id}", response_model=InquiryResponse)
-async def get_inquiry(
-    inquiry_id: int,
-    db: AsyncSession = Depends(get_db),
-):
+async def get_inquiry(inquiry_id: int, db: AsyncSession = Depends(get_db)):
     result = await db.execute(select(Inquiry).where(Inquiry.id == inquiry_id))
     inquiry = result.scalar_one_or_none()
-
     if not inquiry:
-        raise HTTPException(status_code=404, detail="咨询记录不存在")
-
+        raise HTTPException(status_code=404, detail="记录不存在")
     if not inquiry.is_read:
         inquiry.is_read = True
         await db.commit()
         await db.refresh(inquiry)
-
     return inquiry
 
 
 @router.put("/{inquiry_id}/read")
-async def mark_as_read(
-    inquiry_id: int,
-    db: AsyncSession = Depends(get_db),
-):
+async def mark_as_read(inquiry_id: int, db: AsyncSession = Depends(get_db)):
     result = await db.execute(select(Inquiry).where(Inquiry.id == inquiry_id))
     inquiry = result.scalar_one_or_none()
-
     if not inquiry:
-        raise HTTPException(status_code=404, detail="咨询记录不存在")
-
+        raise HTTPException(status_code=404, detail="记录不存在")
     inquiry.is_read = True
     await db.commit()
     return {"success": True}
 
 
 @router.put("/{inquiry_id}/reply")
-async def mark_as_replied(
-    inquiry_id: int,
-    db: AsyncSession = Depends(get_db),
-):
+async def mark_as_replied(inquiry_id: int, db: AsyncSession = Depends(get_db)):
     result = await db.execute(select(Inquiry).where(Inquiry.id == inquiry_id))
     inquiry = result.scalar_one_or_none()
-
     if not inquiry:
-        raise HTTPException(status_code=404, detail="咨询记录不存在")
-
+        raise HTTPException(status_code=404, detail="记录不存在")
     inquiry.is_replied = True
     await db.commit()
     return {"success": True}
 
 
 @router.put("/{inquiry_id}/note")
-async def update_note(
-    inquiry_id: int,
-    data: InquiryNoteUpdate,
-    db: AsyncSession = Depends(get_db),
-):
+async def update_note(inquiry_id: int, data: InquiryNoteUpdate, db: AsyncSession = Depends(get_db)):
     result = await db.execute(select(Inquiry).where(Inquiry.id == inquiry_id))
     inquiry = result.scalar_one_or_none()
-
     if not inquiry:
-        raise HTTPException(status_code=404, detail="咨询记录不存在")
-
+        raise HTTPException(status_code=404, detail="记录不存在")
     inquiry.note = data.note
     await db.commit()
     return {"success": True}
 
 
 @router.delete("/{inquiry_id}")
-async def delete_inquiry(
-    inquiry_id: int,
-    db: AsyncSession = Depends(get_db),
-):
+async def delete_inquiry(inquiry_id: int, db: AsyncSession = Depends(get_db)):
     result = await db.execute(select(Inquiry).where(Inquiry.id == inquiry_id))
     inquiry = result.scalar_one_or_none()
-
     if not inquiry:
-        raise HTTPException(status_code=404, detail="咨询记录不存在")
-
+        raise HTTPException(status_code=404, detail="记录不存在")
     await db.delete(inquiry)
     await db.commit()
     return {"success": True}
 
 
-# ========== 批量操作 ==========
-
 @router.put("/batch/read")
-async def batch_mark_read(
-    data: BatchIdsRequest,
-    db: AsyncSession = Depends(get_db),
-):
+async def batch_mark_read(data: BatchIdsRequest, db: AsyncSession = Depends(get_db)):
     result = await db.execute(select(Inquiry).where(Inquiry.id.in_(data.ids)))
     inquiries = result.scalars().all()
     for inquiry in inquiries:
@@ -350,10 +307,7 @@ async def batch_mark_read(
 
 
 @router.put("/batch/reply")
-async def batch_mark_replied(
-    data: BatchIdsRequest,
-    db: AsyncSession = Depends(get_db),
-):
+async def batch_mark_replied(data: BatchIdsRequest, db: AsyncSession = Depends(get_db)):
     result = await db.execute(select(Inquiry).where(Inquiry.id.in_(data.ids)))
     inquiries = result.scalars().all()
     for inquiry in inquiries:
@@ -363,10 +317,7 @@ async def batch_mark_replied(
 
 
 @router.delete("/batch")
-async def batch_delete(
-    data: BatchIdsRequest,
-    db: AsyncSession = Depends(get_db),
-):
+async def batch_delete(data: BatchIdsRequest, db: AsyncSession = Depends(get_db)):
     result = await db.execute(select(Inquiry).where(Inquiry.id.in_(data.ids)))
     inquiries = result.scalars().all()
     for inquiry in inquiries:

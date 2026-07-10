@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>阮老师 - 咨询管理后台</title>
+    <title>阮琪斌 - 联系管理后台</title>
     <style>
         :root {
             --bg: #f5f5f7;
@@ -11,12 +11,10 @@
             --text: #1c1c1e;
             --text-secondary: #86868b;
             --text-tertiary: #aeaeb2;
-            --blue: #0071e3;
-            --blue-light: #e8f2fd;
-            --green: #34c759;
-            --green-light: #e8f8ed;
-            --orange: #ff9f0a;
-            --orange-light: #fff5e5;
+            --green: #5b8c5a;
+            --green-light: #e8f4e8;
+            --orange: #f5a623;
+            --orange-light: #fef6e8;
             --red: #ff3b30;
             --red-light: #ffe5e3;
             --border: #e5e5ea;
@@ -39,7 +37,6 @@
             letter-spacing: -0.01em;
         }
 
-        /* Header */
         .header {
             background: rgba(255,255,255,0.72);
             backdrop-filter: blur(20px) saturate(180%);
@@ -63,7 +60,6 @@
 
         .container { max-width: 1024px; margin: 0 auto; padding: 24px; }
 
-        /* Stats */
         .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 24px; }
         .stat-card {
             background: var(--white);
@@ -79,7 +75,6 @@
         .stat-card.total .value { color: var(--text); }
         .stat-card.unread .value { color: var(--orange); }
 
-        /* Toolbar */
         .toolbar {
             display: flex;
             gap: 8px;
@@ -100,7 +95,7 @@
             font-family: inherit;
         }
         .toolbar input:focus,
-        .toolbar select:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(0,113,227,0.12); }
+        .toolbar select:focus { border-color: var(--green); box-shadow: 0 0 0 3px rgba(91,140,90,0.12); }
         .toolbar input { flex: 1; min-width: 160px; }
         .toolbar input::placeholder { color: var(--text-tertiary); }
         .toolbar select { cursor: pointer; }
@@ -117,20 +112,19 @@
             transition: all 0.15s;
             white-space: nowrap;
         }
-        .btn-primary { background: var(--blue); color: #fff; }
-        .btn-primary:hover { background: #0066cc; }
+        .btn-primary { background: var(--green); color: #fff; }
+        .btn-primary:hover { background: #4a7a49; }
         .btn-secondary { background: var(--white); color: var(--text-secondary); border: 1px solid var(--border); }
         .btn-secondary:hover { background: var(--bg); }
         .btn-success { background: var(--green); color: #fff; }
-        .btn-success:hover { background: #30b44c; }
+        .btn-success:hover { background: #4a7a49; }
         .btn-danger { background: var(--red); color: #fff; }
         .btn-danger:hover { background: #e63329; }
 
-        /* Batch bar */
         .batch-bar {
             display: none;
-            background: var(--blue-light);
-            border: 1px solid rgba(0,113,227,0.15);
+            background: var(--green-light);
+            border: 1px solid rgba(91,140,90,0.15);
             border-radius: var(--radius);
             padding: 10px 16px;
             margin-bottom: 16px;
@@ -139,8 +133,7 @@
             flex-wrap: wrap;
         }
         .batch-bar.show { display: flex; }
-        .batch-bar span { font-size: 13px; color: var(--blue); font-weight: 500; }
-        .batch-bar .count { font-weight: 700; }
+        .batch-bar span { font-size: 13px; color: var(--green); font-weight: 500; }
         .batch-btn {
             padding: 4px 12px;
             border-radius: 16px;
@@ -153,10 +146,10 @@
             letter-spacing: -0.01em;
             transition: all 0.15s;
         }
-        .batch-btn.read { color: var(--blue); border-color: var(--blue); }
-        .batch-btn.read:hover { background: var(--blue-light); }
-        .batch-btn.reply { color: var(--green); border-color: var(--green); }
-        .batch-btn.reply:hover { background: var(--green-light); }
+        .batch-btn.read { color: var(--green); border-color: var(--green); }
+        .batch-btn.read:hover { background: var(--green-light); }
+        .batch-btn.reply { color: var(--orange); border-color: var(--orange); }
+        .batch-btn.reply:hover { background: var(--orange-light); }
         .batch-btn.delete { color: var(--red); border-color: var(--red); }
         .batch-btn.delete:hover { background: var(--red-light); }
         .batch-btn.cancel { color: var(--text-tertiary); border-color: var(--border); }
@@ -170,9 +163,8 @@
             color: var(--text-secondary);
             cursor: pointer;
         }
-        .select-all-row input[type="checkbox"] { accent-color: var(--blue); width: 16px; height: 16px; cursor: pointer; }
+        .select-all-row input[type="checkbox"] { accent-color: var(--green); width: 16px; height: 16px; cursor: pointer; }
 
-        /* Inquiry cards */
         .inquiry-list { display: flex; flex-direction: column; gap: 8px; }
         .inquiry-card {
             background: var(--white);
@@ -188,7 +180,7 @@
         .inquiry-card.unread { border-left: 3px solid var(--orange); background: var(--orange-light); }
         .inquiry-card.replied { border-left: 3px solid var(--green); }
         .inquiry-card .cb-col { padding-top: 2px; flex-shrink: 0; }
-        .inquiry-card .cb-col input[type="checkbox"] { accent-color: var(--blue); width: 16px; height: 16px; cursor: pointer; }
+        .inquiry-card .cb-col input[type="checkbox"] { accent-color: var(--green); width: 16px; height: 16px; cursor: pointer; }
         .inquiry-card .content-col { flex: 1; min-width: 0; }
         .inquiry-card .top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; flex-wrap: wrap; gap: 6px; }
         .inquiry-card .name { font-size: 15px; font-weight: 600; letter-spacing: -0.01em; }
@@ -200,37 +192,33 @@
         .inquiry-card .actions { display: flex; gap: 6px; flex-wrap: wrap; }
         .inquiry-card .actions button { padding: 4px 12px; border-radius: 16px; font-size: 12px; cursor: pointer; border: 1px solid var(--border); background: var(--white); color: var(--text-secondary); font-family: inherit; font-weight: 500; letter-spacing: -0.01em; transition: all 0.15s; }
         .inquiry-card .actions button:hover { background: var(--bg); }
-        .inquiry-card .actions button.primary { background: var(--blue); color: #fff; border-color: var(--blue); }
-        .inquiry-card .actions button.primary:hover { background: #0066cc; }
+        .inquiry-card .actions button.primary { background: var(--green); color: #fff; border-color: var(--green); }
+        .inquiry-card .actions button.primary:hover { background: #4a7a49; }
         .inquiry-card .actions button.danger { color: var(--red); border-color: #ffcdcb; }
         .inquiry-card .actions button.danger:hover { background: var(--red-light); }
         .inquiry-card .note { margin-top: 8px; font-size: 12px; color: var(--text-tertiary); }
 
-        /* Badges */
         .badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 500; margin-left: 6px; vertical-align: middle; letter-spacing: -0.01em; }
         .badge.unread { background: var(--orange-light); color: #b25e00; }
-        .badge.replied { background: var(--green-light); color: #1a7a30; }
+        .badge.replied { background: var(--green-light); color: #2d6a2e; }
         .badge.read { background: #f0f0f3; color: var(--text-tertiary); }
 
         .empty { text-align: center; padding: 60px 20px; color: var(--text-tertiary); }
 
-        /* Pagination */
         .pagination { display: flex; justify-content: center; gap: 6px; margin-top: 24px; }
         .pagination button { padding: 6px 14px; border-radius: 20px; border: 1px solid var(--border); background: var(--white); cursor: pointer; font-size: 13px; font-family: inherit; color: var(--text-secondary); font-weight: 500; transition: all 0.15s; }
-        .pagination button.active { background: var(--blue); color: #fff; border-color: var(--blue); }
+        .pagination button.active { background: var(--green); color: #fff; border-color: var(--green); }
         .pagination button:disabled { opacity: 0.3; cursor: not-allowed; }
 
-        /* Login */
         .login-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.35); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; z-index: 100; }
         .login-box { background: var(--white); border-radius: var(--radius-lg); padding: 36px; width: 360px; box-shadow: var(--shadow-lg); }
         .login-box h2 { text-align: center; margin-bottom: 28px; font-size: 22px; font-weight: 600; letter-spacing: -0.02em; }
         .login-box input { width: 100%; padding: 10px 14px; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 14px; margin-bottom: 12px; outline: none; font-family: inherit; transition: all 0.15s; }
-        .login-box input:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(0,113,227,0.12); }
-        .login-box button { width: 100%; padding: 10px; background: var(--blue); color: #fff; border: none; border-radius: 20px; font-size: 14px; font-weight: 500; cursor: pointer; font-family: inherit; letter-spacing: -0.01em; }
-        .login-box button:hover { background: #0066cc; }
+        .login-box input:focus { border-color: var(--green); box-shadow: 0 0 0 3px rgba(91,140,90,0.12); }
+        .login-box button { width: 100%; padding: 10px; background: var(--green); color: #fff; border: none; border-radius: 20px; font-size: 14px; font-weight: 500; cursor: pointer; font-family: inherit; letter-spacing: -0.01em; }
+        .login-box button:hover { background: #4a7a49; }
         .login-error { color: var(--red); font-size: 13px; text-align: center; margin-bottom: 8px; display: none; }
 
-        /* Toast */
         .toast { position: fixed; top: 24px; right: 24px; background: var(--text); color: #fff; padding: 10px 20px; border-radius: 20px; font-size: 13px; z-index: 200; transform: translateX(120%); transition: transform 0.3s; box-shadow: var(--shadow-lg); font-weight: 500; letter-spacing: -0.01em; }
         .toast.show { transform: translateX(0); }
         .toast.error { background: var(--red); }
@@ -248,8 +236,8 @@
     <div class="header">
         <div class="header-inner">
             <div>
-                <h1>咨询管理后台</h1>
-                <div class="subtitle">查看和管理家长咨询信息</div>
+                <h1>联系管理后台</h1>
+                <div class="subtitle">查看和管理联系信息</div>
             </div>
         </div>
     </div>
@@ -257,26 +245,24 @@
     <div class="container" id="app" style="display:none;">
         <div class="stats">
             <div class="stat-card total" onclick="setFilter('all')">
-                <div class="label">总咨询数</div>
+                <div class="label">总联系数</div>
                 <div class="value" id="totalCount">0</div>
             </div>
             <div class="stat-card unread" onclick="setFilter('unread')">
-                <div class="label">未读咨询</div>
+                <div class="label">未读联系</div>
                 <div class="value" id="unreadCount">0</div>
             </div>
         </div>
 
         <div class="toolbar">
-            <input type="text" id="searchInput" placeholder="搜索家长、学生、电话..." oninput="onSearchInput()" />
+            <input type="text" id="searchInput" placeholder="搜索公司、联系人、岗位..." oninput="onSearchInput()" />
             <select id="sortSelect" onchange="loadInquiries()">
                 <option value="created_at_desc">提交时间 ↓</option>
                 <option value="created_at_asc">提交时间 ↑</option>
-                <option value="parent_name_asc">家长姓名 A-Z</option>
-                <option value="parent_name_desc">家长姓名 Z-A</option>
-                <option value="student_name_asc">学生姓名 A-Z</option>
-                <option value="student_name_desc">学生姓名 Z-A</option>
-                <option value="grade_asc">年级 升序</option>
-                <option value="grade_desc">年级 降序</option>
+                <option value="name_asc">联系人 A-Z</option>
+                <option value="name_desc">联系人 Z-A</option>
+                <option value="company_asc">公司 A-Z</option>
+                <option value="company_desc">公司 Z-A</option>
             </select>
             <select id="filterSelect" onchange="loadInquiries()">
                 <option value="all">全部</option>
@@ -399,7 +385,7 @@
         function renderInquiries(items) {
             const container = document.getElementById('inquiryList');
             if (items.length === 0) {
-                container.innerHTML = '<div class="empty">暂无咨询记录</div>';
+                container.innerHTML = '<div class="empty">暂无联系记录</div>';
                 return;
             }
             container.innerHTML = items.map(item => {
@@ -416,16 +402,15 @@
                     <div class="content-col">
                         <div class="top">
                             <div>
-                                <span class="name">${escapeHtml(item.parent_name)}</span>
+                                <span class="name">${escapeHtml(item.name)}</span>
                                 ${statusBadge}
                             </div>
                             <div class="time">${new Date(item.created_at).toLocaleString('zh-CN')}</div>
                         </div>
                         <div class="info-grid">
-                            <div class="info-item"><strong>学生</strong> ${escapeHtml(item.student_name)}</div>
-                            <div class="info-item"><strong>年级</strong> ${escapeHtml(item.grade)}</div>
+                            <div class="info-item"><strong>公司</strong> ${escapeHtml(item.company) || '未填写'}</div>
+                            <div class="info-item"><strong>岗位</strong> ${escapeHtml(item.position) || '未填写'}</div>
                             <div class="info-item"><strong>电话</strong> <a href="tel:${item.phone}">${item.phone}</a></div>
-                            <div class="info-item"><strong>微信</strong> ${escapeHtml(item.wechat) || '未填写'}</div>
                         </div>
                         ${item.message ? `<div class="message">${escapeHtml(item.message)}</div>` : ''}
                         ${item.note ? `<div class="note">备注：${escapeHtml(item.note)}</div>` : ''}
@@ -515,7 +500,7 @@
 
         async function batchDelete() {
             if (selectedIds.size === 0) return;
-            if (!confirm(`确定要删除选中的 ${selectedIds.size} 条咨询记录吗？`)) return;
+            if (!confirm(`确定要删除选中的 ${selectedIds.size} 条记录吗？`)) return;
             await fetch(`${API}/api/inquiries/batch`, { method: 'DELETE', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ids: Array.from(selectedIds) }) });
             showToast(`已删除 ${selectedIds.size} 条记录`);
             clearSelection();

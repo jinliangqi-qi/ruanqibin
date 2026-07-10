@@ -3,13 +3,13 @@ from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
-    database_url: str = "sqlite+aiosqlite:///./data/teaching.db"
+    database_url: str = "sqlite+aiosqlite:///./data/app.db"
     admin_username: str = "admin"
     admin_password: str = "changeme123"
     serverchan_sendkey: str = ""
-    cors_origins: str = "http://localhost:3000,http://localhost:8000"
+    cors_origins: str = "http://localhost:3000,http://localhost:3002,http://47.119.132.231:3002"
     host: str = "0.0.0.0"
-    port: int = 8000
+    port: int = 8001
 
     class Config:
         env_file = ".env"

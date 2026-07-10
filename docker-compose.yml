@@ -5,51 +5,36 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    container_name: teaching-backend
+    container_name: ruanqibin-api
     restart: always
     environment:
-      - DATABASE_URL=sqlite+aiosqlite:///./data/teaching.db
+      - DATABASE_URL=sqlite+aiosqlite:///./data/app.db
       - CORS_ORIGINS=http://localhost:3000
       - HOST=0.0.0.0
-      - PORT=8000
+      - PORT=8001
     volumes:
-      - backend_data:/app/data
+      - ruanqibin_data:/app/data
     networks:
-      - teaching-network
+      - ruanqibin-net
 
   frontend:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: teaching-frontend
+    container_name: ruanqibin-web
     restart: always
     ports:
-      - "3001:3000"
+      - "3002:3000"
     environment:
       - API_BASE_URL=http://backend:8000
     depends_on:
       - backend
     networks:
-      - teaching-network
-
-  # 如果你想用 Nginx 反向代理，取消下面的注释
-  # nginx:
-  #   image: nginx:alpine
-  #   container_name: teaching-nginx
-  #   restart: always
-  #   ports:
-  #     - "80:80"
-  #   volumes:
-  #     - ./nginx.conf:/etc/nginx/conf.d/default.conf
-  #   depends_on:
-  #     - frontend
-  #     - backend
-  #   networks:
-  #     - teaching-network
+      - ruanqibin-net
 
 volumes:
-  backend_data:
+  ruanqibin_data:
 
 networks:
-  teaching-network:
+  ruanqibin-net:
     driver: bridge
