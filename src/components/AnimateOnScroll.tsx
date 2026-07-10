@@ -2,16 +2,12 @@
 
 import { useEffect, useRef } from "react";
 
-type AnimType = "fade-up" | "fade-in" | "fade-in-right" | "fade-in-left" | "scale-in";
-
 export default function AnimateOnScroll({
   children,
-  anim = "fade-up",
   delay = 0,
   className = "",
 }: {
   children: React.ReactNode;
-  anim?: AnimType;
   delay?: number;
   className?: string;
 }) {
@@ -25,12 +21,12 @@ export default function AnimateOnScroll({
       ([entry]) => {
         if (entry.isIntersecting) {
           setTimeout(() => {
-            el.classList.add("is-visible");
+            el.classList.add("visible");
           }, delay * 1000);
           observer.unobserve(el);
         }
       },
-      { threshold: 0.1, rootMargin: "-40px 0px" }
+      { threshold: 0.08, rootMargin: "-20px 0px" }
     );
 
     observer.observe(el);
@@ -38,7 +34,7 @@ export default function AnimateOnScroll({
   }, [delay]);
 
   return (
-    <div ref={ref} className={`animate-on-scroll ${className}`} data-anim={anim}>
+    <div ref={ref} className={`anim-reveal ${className}`}>
       {children}
     </div>
   );
